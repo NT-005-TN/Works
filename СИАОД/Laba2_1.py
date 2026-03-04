@@ -1,30 +1,34 @@
 from decimal import Decimal, getcontext
 from fractions import Fraction
 
+# Установка точности для Decimal
+getcontext().prec = 50
+
 # Исходные данные
 prices_float = [19.99, 5.49, 3.50, 12.30, 49.64, 31.01, 7.99]
 
-# 1. Float
+# 1. Расчет с использованием float
 total_float = sum(prices_float)
 discount_float = total_float * 0.93  # Скидка 7%
 vat_float = discount_float * 1.20    # НДС 20%
 part_float = vat_float / 3
 
-# 2. Decimal (высокая точность)
-getcontext().prec = 28
-prices_dec = [Decimal(str(p)) for p in prices_float]
-total_dec = sum(prices_dec)
-discount_dec = total_dec * Decimal('0.93')
-vat_dec = discount_dec * Decimal('1.20')
-part_dec = vat_dec / Decimal('3')
+# 2. Расчет с использованием Decimal (инициализация через строку для точности)
+prices_decimal = [Decimal(str(p)) for p in prices_float]
+total_decimal = sum(prices_decimal)
+discount_decimal = total_decimal * Decimal('0.93')
+vat_decimal = discount_decimal * Decimal('1.20')
+part_decimal = vat_decimal / Decimal('3')
 
-# 3. Fraction (точное рациональное)
-prices_frac = [Fraction(str(p)) for p in prices_float]
-total_frac = sum(prices_frac)
-discount_frac = total_frac * Fraction(93, 100)  
-vat_frac = discount_frac * Fraction(120, 100)  
-part_frac = vat_frac / 3
+# 3. Расчет с использованием Fraction 
+prices_fraction = [Fraction(str(p)) for p in prices_float]
+total_fraction = sum(prices_fraction)
+discount_fraction = total_fraction * Fraction(93, 100)  
+vat_fraction = discount_fraction * Fraction(120, 100)   
+part_fraction = vat_fraction / 3
 
-print(f"Float:    Итого {part_float:.10f}")
-print(f"Decimal:  Итого {part_dec}")
-print(f"Fraction: Итого {float(part_frac):.10f}")
+# Вывод результатов
+print("--- Задание 1: Сравнение типов данных ---")
+print(f"Float:    Итоговая сумма = {vat_float:.10f}, Часть = {part_float:.10f}")
+print(f"Decimal:  Итоговая сумма = {vat_decimal}, Часть = {part_decimal}")
+print(f"Fraction: Итоговая сумма = {vat_fraction}, Часть = {part_fraction}")
