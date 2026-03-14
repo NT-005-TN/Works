@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Регистрация</h2>
+<form method="POST">
+    <input type="text" name="name" placeholder="Имя" required><br>
+    <input type="text" name="phone" placeholder="Телефон" required><br>
+    <input type="password" name="password" placeholder="Пароль" required><br>
+    <input type="text" name="country" placeholder="Страна"><br>
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<!-- Исправлено: auth.login вместо login -->
+<p>Уже есть аккаунт? <a href="{{ url_for('auth.login') }}">Войти</a></p>
+{% endblock %}

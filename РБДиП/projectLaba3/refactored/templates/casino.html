@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Казино</h2>
+<p>Осталось попыток: <span id="spins-left">{{ spins_left }}</span></p>
+<button onclick="spin()">Крутить!</button>
+<button onclick="getMoney()">Получить деньги (бонус)</button>
+<p id="result"></p>
+
+<script>
+    // Прямые URL, поэтому префиксы не нужны
+    async function spin() {
+        const res = await fetch('/casino/', {method: 'POST'});
+        const data = await res.json();
+        document.getElementById('result').innerText = JSON.stringify(data);
+        if(data.final_spin) location.reload();
+    }
+    async function getMoney() {
+        const res = await fetch('/casino/get_money', {method: 'POST'});
+        const data = await res.json();
+        alert('Получено: ' + data.amount);
+        location.reload();
+    }
+</script>
+{% endblock %}

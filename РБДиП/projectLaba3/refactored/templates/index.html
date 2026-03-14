@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Добро пожаловать, {{ current_user.name }}!</h1>
+<p>Баланс: {{ current_user.money }} монет</p>
+
+<!-- Исправлено: добавлены префиксы main., casino., admin. -->
+<nav>
+    <a href="{{ url_for('main.profile') }}">Профиль</a> |
+    <a href="{{ url_for('casino.casino_page') }}">Казино</a> |
+    <a href="{{ url_for('admin.admin_panel') }}">Админка</a> |
+    <a href="{{ url_for('auth.logout') }}">Выйти</a>
+</nav>
+
+<h3>Лидерборд</h3>
+<ul>
+    {% for user in leaderboard %}
+        <li>{{ user.name }} - {{ user.money }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
